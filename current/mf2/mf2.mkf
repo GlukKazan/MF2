@@ -1,0 +1,13 @@
+includepath source/StringPool
+
+files
+{
+    [StringPool]
+    (source/StringPool)
+    StringPool.h
+    StringPool.cpp
+    Value.h
+    Value.cpp
+    StringValue.h
+    StringValue.cpp
+}

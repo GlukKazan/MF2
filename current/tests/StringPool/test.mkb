@@ -1,0 +1,24 @@
+#!/usr/bin/env mkb
+options
+{
+	module_path="../../yaml"
+	module_path="../../mf2"
+}
+
+subprojects
+{
+	iwgx
+	yaml
+	mf2
+}
+
+includepath
+{
+	./source
+}
+
+files
+{
+	(source)
+	Main.cpp
+}
