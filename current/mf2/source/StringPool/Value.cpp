@@ -1,6 +1,8 @@
 #include "Value.h"
 #include "StringPool.h"
 
+namespace mf2 {
+
 Value::Value(int v): numValue(v), strValue(NULL) {}
 Value::Value(const char* s): numValue(0), strValue(pool.getString(s)) {}
 Value::Value(const Value& p): numValue(p.numValue), strValue(pool.getString(p.strValue)) {}
@@ -112,4 +114,6 @@ Value& Value::operator=(const Value& p) {
 		strValue = pool.getString(p.strValue);
 	}
 	return *this;
+}
+
 }

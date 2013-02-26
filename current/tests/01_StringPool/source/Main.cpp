@@ -1,7 +1,8 @@
 #include "IwGx.h"
-
 #include "StringPool.h"
 #include "Value.h"
+
+using namespace mf2;
 
 void init() {
      IwGxInit();

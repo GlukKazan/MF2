@@ -1,6 +1,8 @@
 #ifndef _VALUE_H_
 #define _VALUE_H_
 
+namespace mf2 {
+
 class Value {
 	private:
 		enum {
@@ -30,5 +32,7 @@ class Value {
 
 		Value& operator=(const Value& p);
 };
+
+}
 
 #endif	// _VALUE_H_

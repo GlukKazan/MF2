@@ -1,18 +1,24 @@
 #ifndef _STRING_VALUE_H_
 #define _STRING_VALUE_H_
 
+#include "s3eTypes.h"
+
+namespace mf2 {
+
 class StringValue {
 		enum {
 			MAX_STR_SZ = 32
 		};
 		const char* strValue;
 	public:
+		StringValue(char c);
 		StringValue(const char* s);
 		StringValue(const StringValue& p);
 		~StringValue();
 
 		bool  isString() const {return true;}
-		const char* getString() const {return strValue;}
+		bool  isNull() const {return (strValue == NULL);}
+		const char* getString() const;
 		bool  replace(size_t pos, char c);
 
 		bool  operator<(const StringValue& p)  const;
@@ -24,5 +30,7 @@ class StringValue {
 
 		StringValue& operator=(const StringValue& p);
 };
+
+}
 
 #endif	// _STRING_VALUE_H_

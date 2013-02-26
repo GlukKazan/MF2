@@ -7,6 +7,8 @@
 
 using namespace std;
 
+namespace mf2 {
+
 class StringPool {
 	private:
 		struct Value {
@@ -34,5 +36,7 @@ class StringPool {
 };
 
 extern StringPool pool;
+
+}
 
 #endif	// _STRING_POOL_H_

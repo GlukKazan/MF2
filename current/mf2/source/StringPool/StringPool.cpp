@@ -1,5 +1,7 @@
 #include "StringPool.h"
 
+namespace mf2 {
+
 StringPool pool;
 
 void StringPool::init(){
@@ -58,4 +60,6 @@ const char* StringPool::getString(int v) {
 	memset(s, 0, sizeof(s));
 	sprintf(s, "%d", v);
 	return getString(s);
+}
+
 }

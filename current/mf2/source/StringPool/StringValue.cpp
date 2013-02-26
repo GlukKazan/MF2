@@ -1,11 +1,22 @@
 #include "StringValue.h"
 #include "StringPool.h"
 
+namespace mf2 {
+
 StringValue::StringValue(const char* s): strValue(pool.getString(s)) {}
 StringValue::StringValue(const StringValue& p): strValue(pool.getString(p.strValue)) {}
+StringValue::StringValue(char c): strValue(pool.getString(c)) {}
 
 StringValue::~StringValue() {
 	pool.freeString(strValue);
+}
+
+const char* StringValue::getString() const {
+	if (isNull()) {
+		return "";
+	} else {
+		return strValue;
+	}
 }
 
 bool StringValue::replace(size_t pos, char c) {
@@ -37,4 +48,6 @@ StringValue& StringValue::operator=(const StringValue& p) {
 		strValue = pool.getString(p.strValue);
 	}
 	return *this;
+}
+
 }

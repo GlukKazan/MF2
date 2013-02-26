@@ -1,4 +1,6 @@
 includepath source/StringPool
+includepath source/Loader
+includepath source/Runtime
 
 files
 {
@@ -10,4 +12,20 @@ files
     Value.cpp
     StringValue.h
     StringValue.cpp
+
+    [Loader]
+    (source/Loader)
+    AbstractConfigurable.h
+    AbstractConfigurable.cpp
+    Loader.h
+    Loader.cpp
+    Template.h
+    Template.cpp
+
+    [Runtime]
+    (source/Runtime)
+    VarHolder.h
+    VarHolder.cpp
+    ScopeManager.h
+    ScopeManager.cpp
 }
