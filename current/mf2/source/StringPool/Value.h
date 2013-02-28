@@ -16,12 +16,13 @@ class Value {
 		Value(const Value& p);
 		~Value();
 
-		static int strToNum(const char* strValue);
+		static int  strToNum(const char* strValue);
+		static bool strToBool(const char* strValue);
 
 		bool  isString() const;
 		int   getInt() const;
 		const char* getString() const;
-		bool  replace(size_t pos, char c);
+		bool  replace(int pos, char c);
 
 		bool  operator<(const Value& p)  const;
 		bool  operator>(const Value& p)  const;

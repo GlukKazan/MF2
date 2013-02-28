@@ -24,6 +24,7 @@ class Template: public AbstractConfigurable
 			StringValue value;
 			int getType() const;
 		};
+		int             deep;
 		Template*       next;
 		int             level;
 		vector<Item>    items;

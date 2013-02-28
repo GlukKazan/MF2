@@ -1,3 +1,5 @@
+#ifndef YAML_PRIVATE_H
+#define YAML_PRIVATE_H
 
 //#if HAVE_CONFIG_H
 #include <config.h>
@@ -638,3 +640,4 @@ yaml_queue_extend(void **start, void **head, void **tail, void **end);
      (node).data.mapping.pairs.top = (node_pairs_start),                        \
      (node).data.mapping.style = (node_style))
 
+#endif /* #ifndef YAML_PRIVATE_H */

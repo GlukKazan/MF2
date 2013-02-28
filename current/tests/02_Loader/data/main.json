@@ -1,0 +1,54 @@
+{ load:         state.json,
+  display:    { width:                720,
+                orientation:          portrait
+              },
+  templates: { wt_N:   { action:      w_N,
+                         name:        wr_N,
+                         template:    lock,
+                         x:           1,
+                         template:    y,
+                         width:      -1,
+                         height:      30,
+                         image:       w_N
+                       },
+               worlds: { regions: [ { templates: { y:    { y:    1 } },
+                                      template:            wt_1
+                                    },
+                                    { templates: { y:    { y:    31 } },
+                                      templates: { lock: { lock: stars>=10 } },
+                                      template:            wt_1
+                                    }
+                                  ]
+                       }
+             },
+  scopes:    { start:        { default:          Y,
+                               vars:           { type:            number,
+                                                 stars:           0
+                                               },
+                               vars:           { background:      world_frame,
+                                                 back:            quit
+                                               },
+                               regions:      [ { zorder:         -1,
+                                                 x:               10,
+                                                 y:               10,
+                                                 width:          -10,
+                                                 height:         -10,
+                                                 template:        worlds
+                                               }
+                                             ]
+                             },
+                w_N:         { load:             w_N.json,
+                               game:             arcanoid,
+                               vars:           { type:            number,
+                                                 life:            5,
+                                                 score:           0
+                                               },
+                               vars:           { background:      b_N,
+                                                 back:            back
+                                               },
+                               set:            { event:           impact,
+                                                 score:           score+10
+                                               }
+                             }
+              }
+}

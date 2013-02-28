@@ -8,7 +8,7 @@ StringValue::StringValue(const StringValue& p): strValue(pool.getString(p.strVal
 StringValue::StringValue(char c): strValue(pool.getString(c)) {}
 
 StringValue::~StringValue() {
-	pool.freeString(strValue);
+	clear();
 }
 
 const char* StringValue::getString() const {
@@ -19,7 +19,14 @@ const char* StringValue::getString() const {
 	}
 }
 
-bool StringValue::replace(size_t pos, char c) {
+void StringValue::clear() {
+	if (strValue != NULL) {
+		pool.freeString(strValue);
+		strValue = NULL;
+	}
+}
+
+bool StringValue::replace(int pos, char c) {
 	if (pos >= MAX_STR_SZ - 1) return false;
 	const char* s = getString();
 	if (strlen(s) >= MAX_STR_SZ) return false;
@@ -27,7 +34,7 @@ bool StringValue::replace(size_t pos, char c) {
 	char r[MAX_STR_SZ];
 	memset(r, 0, sizeof(r));
 	strcpy(r, s);
-	for (size_t i = strlen(r); i < pos; i++) {
+	for (int i = strlen(r); i < pos; i++) {
 		r[i] = '0';
 	}
 	r[pos] = c;
@@ -36,10 +43,18 @@ bool StringValue::replace(size_t pos, char c) {
 }
 
 bool StringValue::operator<(const StringValue& p) const {
+	if (isNull()) {
+		if (p.isNull()) return false;
+		else return true;
+	}
 	return strcmp(getString(), p.getString()) < 0;
 }
 
 bool StringValue::operator>(const StringValue& p) const {
+	if (p.isNull()) {
+		if (isNull()) return false;
+		else return true;
+	}
 	return strcmp(getString(), p.getString()) > 0;
 }
 

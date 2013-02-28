@@ -21,7 +21,7 @@ class StringPool {
 			MAX_NUM_STR_SZ = 32
 		};
 		map<Value, int>* usage;
-		size_t calculateSize(const char* s);
+		int calculateSize(const char* s);
 	public:
 		void init();
 		void release();

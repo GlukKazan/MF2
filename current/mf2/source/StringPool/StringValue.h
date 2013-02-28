@@ -11,6 +11,7 @@ class StringValue {
 		};
 		const char* strValue;
 	public:
+		StringValue(): strValue(NULL) {}
 		StringValue(char c);
 		StringValue(const char* s);
 		StringValue(const StringValue& p);
@@ -18,8 +19,9 @@ class StringValue {
 
 		bool  isString() const {return true;}
 		bool  isNull() const {return (strValue == NULL);}
+		void  clear();
 		const char* getString() const;
-		bool  replace(size_t pos, char c);
+		bool  replace(int pos, char c);
 
 		bool  operator<(const StringValue& p)  const;
 		bool  operator>(const StringValue& p)  const;

@@ -64,7 +64,7 @@ int VarHolder::getInt(const char* name) {
 
 void VarHolder::addMagic() {
 	const char* s = name.getString();
-	for (size_t i = 0; i < strlen(s); i++) {
+	for (int i = 0; i < (int)strlen(s); i++) {
 		if ((s[i] >= 'A')&&(s[i] <= 'Z')) {
 			defVar(StringValue(s[i]).getString(), 0);
 		}
@@ -83,8 +83,8 @@ int VarHolder::getMagicValue(char c) {
 
 void VarHolder::setMagic(const char* actualName) {
 	const char* s = name.getString();
-	for (size_t i = 0; i < strlen(s); i++) {
-		if (i >= strlen(actualName)) break;
+	for (int i = 0; i < (int)strlen(s); i++) {
+		if (i >= (int)strlen(actualName)) break;
 		if ((s[i] >= 'A')&&(s[i] <= 'Z')) {
 			int v = getMagicValue(actualName[i]);
 			if (v >= 0) {
@@ -96,8 +96,8 @@ void VarHolder::setMagic(const char* actualName) {
 
 bool VarHolder::isEqual(const char* actualName) {
 	const char* s = name.getString();
-	for (size_t i = 0; i < strlen(s); i++) {
-		if (i >= strlen(actualName)) return false;
+	for (int i = 0; i < (int)strlen(s); i++) {
+		if (i >= (int)strlen(actualName)) return false;
 		if ((s[i] >= 'A')&&(s[i] <= 'Z')) continue;
 		if (s[i] != actualName[i]) return false;
 	}

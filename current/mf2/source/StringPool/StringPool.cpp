@@ -15,9 +15,9 @@ void StringPool::release() {
 	delete usage;
 }
 
-size_t StringPool::calculateSize(const char* s) {
-	size_t r = strlen(s) + 1;
-	size_t i = 2;
+int StringPool::calculateSize(const char* s) {
+	int r = strlen(s) + 1;
+	int i = 2;
 	for (; i < r; i <<= 1);
 	return i;
 }
@@ -41,7 +41,7 @@ const char* StringPool::getString(const char* s) {
 		p->second++;
 		return p->first.strValue;
 	}
-	size_t sz = calculateSize(s);
+	int sz = calculateSize(s);
 	char* r = new char[sz];
 	memset(r, 0, sz);
 	strcpy(r, s);

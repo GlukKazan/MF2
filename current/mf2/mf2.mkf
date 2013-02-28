@@ -1,6 +1,7 @@
 includepath source/StringPool
 includepath source/Loader
 includepath source/Runtime
+includepath source/System
 
 files
 {
@@ -17,10 +18,16 @@ files
     (source/Loader)
     AbstractConfigurable.h
     AbstractConfigurable.cpp
-    Loader.h
-    Loader.cpp
+    ConfigLoader.h
+    ConfigLoader.cpp
     Template.h
     Template.cpp
+    ScopeDef.h
+    ScopeDef.cpp
+    RegionDef.h
+    RegionDef.cpp
+    VarDef.h
+    VarDef.cpp
 
     [Runtime]
     (source/Runtime)
@@ -28,4 +35,9 @@ files
     VarHolder.cpp
     ScopeManager.h
     ScopeManager.cpp
+
+    [System]
+    (source/System)
+    Desktop.h
+    Desktop.cpp
 }

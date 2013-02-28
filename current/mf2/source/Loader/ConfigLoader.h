@@ -21,7 +21,8 @@ namespace mf2 {
 	private:
 		enum {
 			stTop       = 0,
-			stTemplates = 1
+			stTemplates = 1,
+			stTemplate  = 2
 		};
 		struct Scope {
 			Scope(AbstractConfigurable* c, int s = 0): ctx(c), state(s) {}

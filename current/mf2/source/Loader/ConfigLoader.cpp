@@ -1,4 +1,4 @@
-#include "Loader.h"
+#include "ConfigLoader.h"
 #include <string.h>
 
 namespace mf2 {
@@ -15,7 +15,7 @@ void Loader::clearCurrentName() {
 
 bool Loader::load(const char* name, AbstractConfigurable* ctx) {
 	bool r = true;
-	setState(stTop);
+	setState(stTop); 
 	scopes.push(Scope(ctx, ctx->getState()));
 	clearCurrentName();
     yaml_parser_initialize(&parser);
@@ -89,45 +89,60 @@ void Loader::dropTemplates(int level) {
 
 AbstractConfigurable* Loader::createContext(const char* name) {
 	AbstractConfigurable* r = (AbstractConfigurable*)this;
-	if (strcmp(name, TEMPLATES_SCOPE) == 0) {
-		scopes.push(Scope(r, stTemplates));
-		return r;
-	}
-	if (scopes.empty()) return NULL;
-	if ((scopes.top().ctx == r) && (scopes.top().state == stTemplates)) {
-		StringValue nm(name);
-		TIter p = templates.find(nm);
-		if (p != templates.end()) {
-			r = p->second = new Template(name, p->second, scopes.size());
-		} else {
-			Template* t = new Template(name, NULL, scopes.size());
-			templates.insert(TPair(nm, t));
-			r = (AbstractConfigurable*)t;
+	if (getState() != stTemplate) {
+		if (strcmp(name, TEMPLATES_SCOPE) == 0) {
+			scopes.push(Scope(r, stTemplates));
+			return r;
 		}
-		scopes.push(Scope(r));
-		return r;
+		if (scopes.empty()) return NULL;
+		if ((scopes.top().ctx == r) && (scopes.top().state == stTemplates)) {
+			StringValue nm(name);
+			TIter p = templates.find(nm);
+			if (p != templates.end()) {
+				r = p->second = new Template(name, p->second, scopes.size());
+			} else {
+				Template* t = new Template(name, NULL, scopes.size());
+				templates.insert(TPair(nm, t));
+				r = (AbstractConfigurable*)t;
+			}
+			setState(stTemplate);
+			scopes.push(Scope(r));
+			return r;
+		}
 	}
-	r = scopes.top().ctx->createContext(name);
-	scopes.push(Scope(r, r->getState()));
+	AbstractConfigurable* t = scopes.top().ctx;
+	if (t == (AbstractConfigurable*)this) return NULL;
+	r = t->createContext(name);
+	if (r != NULL) {
+		scopes.push(Scope(r, r->getState()));
+	}
 	return r;
 }
 
 bool Loader::closeContext() {
+	bool r = true;
 	if (scopes.empty()) return false;
-	scopes.top().ctx->closeContext();
+	AbstractConfigurable* t = scopes.top().ctx;
+	if (t != (AbstractConfigurable*)this) {
+		r = scopes.top().ctx->closeContext();
+	}
 	scopes.pop();
 	dropTemplates(scopes.size());
 	if (!scopes.empty()) {
 		scopes.top().ctx->setState(scopes.top().state);
 	}
-	return true;
+	return r;
 }
 
 bool Loader::setValue(const char* name, const char* value) {
-	if (strcmp(name, TEMPLATE_PROPERTY) == 0) {
-		return applyTemplate(value);
-	}
 	if (scopes.empty()) return false;
+	if (getState() != stTemplate) {
+		if (strcmp(name, TEMPLATE_PROPERTY) == 0) {
+			return applyTemplate(value);
+		}
+	}
+	AbstractConfigurable* t = scopes.top().ctx;
+	if (t == (AbstractConfigurable*)this) return false;
 	return scopes.top().ctx->setValue(name, value);
 }
 
@@ -138,7 +153,7 @@ bool Loader::applyTemplate(const char* name) {
 			return p->second->apply((AbstractConfigurable*)this);
 		}
 	}
-	return false;
+	return true;
 }
 
 }

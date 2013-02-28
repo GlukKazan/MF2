@@ -4,7 +4,7 @@
 
 namespace mf2 {
 
-Template::Template(const char* name, Template* t, int l): AbstractConfigurable(), VarHolder(NULL, name), next(t), level(l), items() {}
+Template::Template(const char* name, Template* t, int l): AbstractConfigurable(), VarHolder(NULL, name), next(t), level(l), items(), deep(0) {}
 
 int Template::Item::getType() const {
 	if (name.isNull()) {
@@ -18,6 +18,7 @@ int Template::Item::getType() const {
 
 AbstractConfigurable* Template::createContext(const char* name) {
 	items.push_back(Item(name));
+	deep++;
 	return this;
 }
 
@@ -27,6 +28,8 @@ bool Template::setValue(const char* name, const char* value) {
 }
 
 bool Template::closeContext() {
+	if (deep == 0) return true;
+	deep--;
 	items.push_back(Item());
 	return true;
 }
