@@ -28,8 +28,8 @@ class Value {
 		bool  operator>(const Value& p)  const;
 		bool  operator<=(const Value& p) const {return !(*this > p);}
 		bool  operator>=(const Value& p) const {return !(*this < p);}
-		bool  operator==(const Value& p) const {return  (*this < p) || (*this > p);}
-		bool  operator!=(const Value& p) const {return !(*this == p);}
+		bool  operator!=(const Value& p) const {return  (*this < p) || (*this > p);}
+		bool  operator==(const Value& p) const {return !(*this != p);}
 
 		Value& operator=(const Value& p);
 };

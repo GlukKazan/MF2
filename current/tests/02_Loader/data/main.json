@@ -16,7 +16,7 @@
                                     },
                                     { templates: { y:    { y:    31 } },
                                       templates: { lock: { lock: stars>=10 } },
-                                      template:            wt_1
+                                      template:            wt_2
                                     }
                                   ]
                        }

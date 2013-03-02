@@ -35,7 +35,6 @@ bool Template::closeContext() {
 }
 
 bool Template::apply(AbstractConfigurable* ctx) {
-	const char* v;
 	for (IIter p = items.begin(); p != items.end(); ++p) {
 		switch (p->getType()) {
 			case itOpen:
@@ -45,8 +44,10 @@ bool Template::apply(AbstractConfigurable* ctx) {
 				if (!ctx->closeContext()) return false;
 				break;
 			case itSet:
-				v = magicValue(p->value.getString());
-				if (!ctx->setValue(p->name.getString(), v)) return false;
+				{	Value v(p->value.getString());
+					magicValue(v);
+					if (!ctx->setValue(p->name.getString(), v.getString())) return false;
+				}
 				break;
 		}
 	}

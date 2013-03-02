@@ -27,8 +27,8 @@ class StringValue {
 		bool  operator>(const StringValue& p)  const;
 		bool  operator<=(const StringValue& p) const {return !(*this > p);}
 		bool  operator>=(const StringValue& p) const {return !(*this < p);}
-		bool  operator==(const StringValue& p) const {return  (*this < p) || (*this > p);}
-		bool  operator!=(const StringValue& p) const {return !(*this == p);}
+		bool  operator!=(const StringValue& p) const {return  (*this < p) || (*this > p);}
+		bool  operator==(const StringValue& p) const {return !(*this != p);}
 
 		StringValue& operator=(const StringValue& p);
 };

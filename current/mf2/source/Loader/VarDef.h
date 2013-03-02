@@ -1,6 +1,7 @@
 #ifndef _VAR_DEF_H_
 #define _VAR_DEF_H_
 
+#include <set>
 #include <vector>
 #include "AbstractConfigurable.h"
 #include "StringValue.h"
@@ -9,6 +10,8 @@
 using namespace std;
 
 #define TYPE_PROPERTY   "type"
+#define EVENT_PROPERTY  "event"
+#define LOCK_PROPERTY   "lock"
 
 #define NUMBER_TYPE     "number"
 #define STRING_TYPE     "string"
@@ -28,9 +31,11 @@ class VarDef: public AbstractConfigurable {
 			StringValue name;
 			Value value;
 		};
-		int   defType;
-		int   valType;
-		vector<Val> values;
+		int                 defType;
+		int                 valType;
+		vector<Val>         values;
+		vector<StringValue> locks;
+		set<StringValue>    events;
 	public:
 		enum EDefType {
 			dtVar       = 0,
@@ -40,6 +45,8 @@ class VarDef: public AbstractConfigurable {
 		virtual bool setValue(const char* name, const char* value);
 
 	typedef vector<Val>::iterator VIter;
+	typedef vector<StringValue>::iterator LIter;
+	typedef set<StringValue>::iterator EIter;
 };
 
 }

@@ -17,11 +17,12 @@ class VarHolder {
 		void addMagic();
 		int  getMagicValue(char c);
 	protected:
-		const char* magicValue(const char* value);
+		void magicValue(Value& v);
 	public:
 		VarHolder(VarHolder* p, const char* nm = "");
 		void setMagic(const char* actualName);
 		bool isEqual(const char* actualName);
+		static bool isEmpty(const char* v);
 
 		template<class T>
 		void defVar(const char* name, T value);

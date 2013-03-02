@@ -34,6 +34,7 @@ namespace mf2 {
         yaml_event_t                  evnt;
 		stack<Scope>                  scopes;
 		map<StringValue, Template*>   templates;
+		int                           deep;
 		char                          currentName[MAX_NAME_SZ];
 		void                          clearCurrentName();
         bool                          notify(AbstractConfigurable* ctx);

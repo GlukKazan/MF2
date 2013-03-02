@@ -104,11 +104,26 @@ bool VarHolder::isEqual(const char* actualName) {
 	return true;
 }
 
-const char* VarHolder::magicValue(const char* value) {
-	Value v(value);
+bool VarHolder::isEmpty(const char* v) {
+	if (v == NULL) return true;
+	if (v[0] == 0) return true;
+	return false;
+}
 
-
-	return v.getString();
+void VarHolder::magicValue(Value& v) {
+	const char* value = v.getString();
+	for (int i = 0; i < (int)strlen(value); i++) {
+		if ((value[i] >= 'A')&&(value[i] <= 'Z')) {
+			StringValue name(value[i]);
+			if (isExists(name.getString())) {
+				const char* vl = getString(name.getString());
+				if (!isEmpty(vl)) {
+					v.replace(i, vl[0]);
+					value = v.getString();
+				}
+			}
+		}
+	}
 }
 
 }
