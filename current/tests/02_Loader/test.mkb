@@ -22,3 +22,8 @@ files
 	(source)
 	Main.cpp
 }
+assets
+{
+	(data)
+	main.json
+}
